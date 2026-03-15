@@ -87,7 +87,7 @@
   font-size: 0.9rem;
   font-weight: 500;
   background-color: rgba(255, 255, 255, 0.9);
-  color: #ff4d6d;
+  color: #9900cc;
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -122,7 +122,7 @@
 
 .floatingHeart {
   position: absolute;
-  color: #ff3355;
+  color: #cc00ff;
   font-size: 1.5rem;
   opacity: 0;
   user-select: none;

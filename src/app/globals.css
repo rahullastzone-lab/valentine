@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap');
 
 :root {
-  --background: #ff8fa3;
+  --background: radial-gradient(circle at top left, #cc00ff, #aa00dd, #8800bb, #aa00ff);
   --foreground: #ffffff;
-  --btn-yes: #ff4d6d;
-  --btn-yes-hover: #ff3355;
+  --btn-yes: #9900cc;
+  --btn-yes-hover: #770099;
   --btn-no: #333333;
   --btn-no-hover: #1a1a1a;
 }
