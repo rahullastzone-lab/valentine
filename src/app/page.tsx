@@ -49,7 +49,9 @@ export default function Home() {
   useEffect(() => {
     // Initialize audio objects only on client side
     nopeSound.current = new Audio('/nope.mp3');
-    kissSound.current = new Audio('/kiss.mp3');
+    const kissAudio = new Audio('/kiss.mp3');
+    kissAudio.preload = 'auto'; // Force preload for mobile
+    kissSound.current = kissAudio;
   }, []);
 
   const moveButton = () => {
@@ -93,14 +95,26 @@ export default function Home() {
             style={{ cursor: "pointer", touchAction: "manipulation" }}
             onClick={() => {
               if (kissSound.current) {
+                // Setting volume incase it was muted
+                kissSound.current.volume = 1;
                 kissSound.current.currentTime = 0;
-                kissSound.current.play().catch(e => console.log("Kiss audio play failed:", e));
+
+                const playPromise = kissSound.current.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(e => console.log("Kiss audio play failed:", e));
+                }
               }
             }}
-            onTouchStart={() => {
+            onTouchStart={(e) => {
+              e.preventDefault(); // Prevent double firing from touch & click
               if (kissSound.current) {
+                kissSound.current.volume = 1;
                 kissSound.current.currentTime = 0;
-                kissSound.current.play().catch(e => console.log("Kiss audio play failed:", e));
+
+                const playPromise = kissSound.current.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(e => console.log("Kiss audio play failed:", e));
+                }
               }
             }}
           />
@@ -119,7 +133,19 @@ export default function Home() {
         <div className={styles.yesContainer}>
           <button
             className={`${styles.btn} ${styles.btnYes}`}
-            onClick={() => setAccepted(true)}
+            onClick={() => {
+              // Unlock audio on iOS by playing silently during initial user interaction
+              if (kissSound.current) {
+                kissSound.current.volume = 0;
+                kissSound.current.play().then(() => {
+                  if (kissSound.current) {
+                    kissSound.current.pause();
+                    kissSound.current.currentTime = 0;
+                  }
+                }).catch(e => console.log("Unlock audio failed", e));
+              }
+              setAccepted(true);
+            }}
           >
             Yes ✅
           </button>
