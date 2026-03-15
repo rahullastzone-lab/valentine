@@ -92,31 +92,6 @@ export default function Home() {
             src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
             alt="cute bear kiss"
             className={styles.gif}
-            style={{ cursor: "pointer", touchAction: "manipulation" }}
-            onClick={() => {
-              if (kissSound.current) {
-                // Setting volume incase it was muted
-                kissSound.current.volume = 1;
-                kissSound.current.currentTime = 0;
-
-                const playPromise = kissSound.current.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch(e => console.log("Kiss audio play failed:", e));
-                }
-              }
-            }}
-            onTouchStart={(e) => {
-              e.preventDefault(); // Prevent double firing from touch & click
-              if (kissSound.current) {
-                kissSound.current.volume = 1;
-                kissSound.current.currentTime = 0;
-
-                const playPromise = kissSound.current.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch(e => console.log("Kiss audio play failed:", e));
-                }
-              }
-            }}
           />
         </div>
       </div>
@@ -134,15 +109,10 @@ export default function Home() {
           <button
             className={`${styles.btn} ${styles.btnYes}`}
             onClick={() => {
-              // Unlock audio on iOS by playing silently during initial user interaction
               if (kissSound.current) {
-                kissSound.current.volume = 0;
-                kissSound.current.play().then(() => {
-                  if (kissSound.current) {
-                    kissSound.current.pause();
-                    kissSound.current.currentTime = 0;
-                  }
-                }).catch(e => console.log("Unlock audio failed", e));
+                kissSound.current.volume = 1;
+                kissSound.current.currentTime = 0;
+                kissSound.current.play().catch(e => console.log("Kiss sound failed:", e));
               }
               setAccepted(true);
             }}
