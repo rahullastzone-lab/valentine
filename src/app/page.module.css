@@ -68,11 +68,19 @@
 
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate(6px, 0px);
+  }
+
+  25% {
+    transform: translate(0px, 6px);
   }
 
   50% {
-    transform: translateY(-8px);
+    transform: translate(-6px, 0px);
+  }
+
+  75% {
+    transform: translate(0px, -6px);
   }
 }
 
@@ -80,7 +88,7 @@
   background-color: var(--btn-yes);
   box-shadow: 0 0 25px 8px rgba(34, 0, 51, 0.7);
   /* Dark purple shadow matching image */
-  animation: floatButton 3s ease-in-out infinite;
+  animation: floatButton 4s linear infinite;
 }
 
 .btnYes:hover {
