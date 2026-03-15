@@ -124,16 +124,18 @@
   position: absolute;
   color: #ff3355;
   font-size: 1.5rem;
-  opacity: 0.6;
+  opacity: 0;
   user-select: none;
   pointer-events: none;
   animation: floatUp linear infinite;
   z-index: 1;
+  bottom: -50px;
+  /* Start initially below the screen to hide before animation */
 }
 
 @keyframes floatUp {
   0% {
-    transform: translateY(100vh) scale(0.5);
+    transform: translateY(0) scale(0.5);
     opacity: 0;
   }
 
@@ -146,7 +148,7 @@
   }
 
   100% {
-    transform: translateY(-100px) scale(1.2);
+    transform: translateY(-110vh) scale(1.2);
     opacity: 0;
   }
 }
