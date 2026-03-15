@@ -42,6 +42,16 @@ export default function Home() {
   const [isMoved, setIsMoved] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Create audio references
+  const nopeSound = useRef<HTMLAudioElement | null>(null);
+  const yesSound = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Initialize audio objects only on client side
+    nopeSound.current = new Audio('/nope.mp3');
+    yesSound.current = new Audio('/fah.mp3');
+  }, []);
+
   const moveButton = () => {
     // Get viewport dimensions to keep the button inside visible screen
     const windowWidth = typeof window !== "undefined" ? window.innerWidth : 800;
@@ -62,6 +72,12 @@ export default function Home() {
 
     setNoPosition({ left: newLeft, top: newTop });
     setIsMoved(true);
+
+    // Play the nope sound
+    if (nopeSound.current) {
+      nopeSound.current.currentTime = 0; // Rewind to start if already playing
+      nopeSound.current.play().catch(e => console.log("Audio play failed:", e));
+    }
   };
 
   if (accepted) {
@@ -90,7 +106,13 @@ export default function Home() {
         <div className={styles.yesContainer}>
           <button
             className={`${styles.btn} ${styles.btnYes}`}
-            onClick={() => setAccepted(true)}
+            onClick={() => {
+              if (yesSound.current) {
+                yesSound.current.currentTime = 0;
+                yesSound.current.play().catch(e => console.log("Audio play failed:", e));
+              }
+              setAccepted(true);
+            }}
           >
             Yes ✅
           </button>
