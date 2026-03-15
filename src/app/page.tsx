@@ -44,13 +44,11 @@ export default function Home() {
 
   // Create audio references
   const nopeSound = useRef<HTMLAudioElement | null>(null);
-  const yesSound = useRef<HTMLAudioElement | null>(null);
   const kissSound = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Initialize audio objects only on client side
     nopeSound.current = new Audio('/nope.mp3');
-    yesSound.current = new Audio('/fah.mp3');
     kissSound.current = new Audio('/kiss.mp3');
   }, []);
 
@@ -115,13 +113,7 @@ export default function Home() {
         <div className={styles.yesContainer}>
           <button
             className={`${styles.btn} ${styles.btnYes}`}
-            onClick={() => {
-              if (yesSound.current) {
-                yesSound.current.currentTime = 0;
-                yesSound.current.play().catch(e => console.log("Audio play failed:", e));
-              }
-              setAccepted(true);
-            }}
+            onClick={() => setAccepted(true)}
           >
             Yes ✅
           </button>
