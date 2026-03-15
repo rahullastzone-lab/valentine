@@ -64,13 +64,28 @@
   color: white;
 }
 
+@keyframes floatButton {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
 .btnYes {
   background-color: var(--btn-yes);
   box-shadow: 0 0 25px 8px rgba(34, 0, 51, 0.7);
   /* Dark purple shadow matching image */
+  animation: floatButton 3s ease-in-out infinite;
 }
 
 .btnYes:hover {
+  animation: none;
+  /* Pause floating when hovered */
   background-color: var(--btn-yes-hover);
   transform: scale(1.1);
   box-shadow: 0 0 30px 10px rgba(17, 0, 26, 0.9);
