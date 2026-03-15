@@ -90,11 +90,17 @@ export default function Home() {
             src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif"
             alt="cute bear kiss"
             className={styles.gif}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", touchAction: "manipulation" }}
             onClick={() => {
               if (kissSound.current) {
                 kissSound.current.currentTime = 0;
-                kissSound.current.play().catch(e => console.log("Audio play failed:", e));
+                kissSound.current.play().catch(e => console.log("Kiss audio play failed:", e));
+              }
+            }}
+            onTouchStart={() => {
+              if (kissSound.current) {
+                kissSound.current.currentTime = 0;
+                kissSound.current.play().catch(e => console.log("Kiss audio play failed:", e));
               }
             }}
           />
