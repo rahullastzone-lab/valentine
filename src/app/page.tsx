@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./page.module.css";
 
 const FloatingHearts = () => {
-  const [hearts, setHearts] = useState<{ id: number; left: number; delay: number; duration: number }[]>([]);
+  const [hearts, setHearts] = useState<{ id: number; left: number; delay: number; duration: number; isBalloon: boolean }[]>([]);
 
   useEffect(() => {
     // Generate initial hearts
@@ -12,7 +12,8 @@ const FloatingHearts = () => {
       id: i,
       left: Math.random() * 100, // random horizontal position 0-100%
       delay: Math.random() * 10, // random start delay up to 10s
-      duration: Math.random() * 10 + 10 // random duration between 10-20s
+      duration: Math.random() * 10 + 10, // random duration between 10-20s
+      isBalloon: Math.random() > 0.5 // randomly pick 50% balloons
     }));
     setHearts(newHearts);
   }, []);
@@ -29,7 +30,7 @@ const FloatingHearts = () => {
             animationDuration: `${heart.duration}s`
           }}
         >
-          ❤️
+          {heart.isBalloon ? '🎈' : '❤️'}
         </div>
       ))}
     </>
