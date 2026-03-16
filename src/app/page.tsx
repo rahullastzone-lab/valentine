@@ -102,7 +102,7 @@ export default function Home() {
     <div className={styles.container} ref={containerRef}>
       <FloatingHearts />
       <h2 className={styles.subtitle}>ABHILASHA ❤️</h2>
-      <h1 className={styles.title}>Will you be my Valentine?</h1>
+      <h1 className={styles.title}>CHAI PE CHALOGI MERE SATH?</h1>
 
       <div className={styles.buttonsWrapper}>
         <div className={styles.yesContainer}>
