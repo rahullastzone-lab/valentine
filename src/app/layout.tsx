@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ABHILASHA",
-  description: "Will you be my Valentine?",
+  description: "CHAI PE CHALOGI MERE SATH?",
 };
 
 export default function RootLayout({
