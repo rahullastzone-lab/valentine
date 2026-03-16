@@ -134,6 +134,7 @@ export default function Home() {
           } : {}}
           onMouseEnter={moveButton}
           onClick={moveButton}
+          onTouchStart={moveButton}
         >
           No 🥺
         </button>
