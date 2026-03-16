@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import styles from "./page.module.css";
+import { supabase } from "@/utils/supabase";
 
 const FloatingHearts = () => {
   const [hearts, setHearts] = useState<{ id: number; left: number; delay: number; duration: number; isBalloon: boolean }[]>([]);
@@ -81,6 +82,13 @@ export default function Home() {
       nopeSound.current.currentTime = 0; // Rewind to start if already playing
       nopeSound.current.play().catch(e => console.log("Audio play failed:", e));
     }
+
+    // Track "No" button movement
+    supabase.from('proposal_responses').insert([
+      { response: 'dodged_no' }
+    ]).then(({ error }) => {
+      if (error) console.error("Error logging No dodge:", error);
+    });
   };
 
   if (accepted) {
@@ -109,13 +117,19 @@ export default function Home() {
         <div className={styles.yesContainer}>
           <button
             className={`${styles.btn} ${styles.btnYes}`}
-            onClick={() => {
+            onClick={async () => {
               if (kissSound.current) {
                 kissSound.current.volume = 1;
                 kissSound.current.currentTime = 0;
                 kissSound.current.play().catch(e => console.log("Kiss sound failed:", e));
               }
               setAccepted(true);
+
+              // Track "Yes" button click
+              const { error } = await supabase.from('proposal_responses').insert([
+                { response: 'clicked_yes' }
+              ]);
+              if (error) console.error("Error logging Yes click:", error);
             }}
           >
             Yes ✅
